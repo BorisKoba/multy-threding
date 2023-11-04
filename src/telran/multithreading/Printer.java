@@ -1,11 +1,30 @@
-package telran.multithreding;
+package telran.multithreading;
 
 public class Printer extends Thread {
-	private char  symbol;
-	private int nRuns;
-	public Printer(char symbol, int nRuns) {
-		this.symbol = symbol;
-		this.nRuns = nRuns;
+	String symbols;
+	boolean running = true;
+	public Printer(String symbols) {
+		this.symbols = symbols;
+	}
+	public void finish() {
+		running = false;
+	}
+	@Override
+	public void run() {
+		int nSymbols = symbols.length();
+		char[] arrSymbols = symbols.toCharArray();
+		int index = 0;
+		while(running) {
+			System.out.print(arrSymbols[index]+ " ");
+			try {
+				sleep(2000);
+			} catch (InterruptedException e) {
+				index++;
+				if(index == nSymbols) {
+					index = 0;
+				}
+			}
+		}
 	}
 	
 }
