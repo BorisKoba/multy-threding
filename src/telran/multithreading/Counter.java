@@ -1,25 +1,21 @@
 package telran.multithreading;
 
 public class Counter extends Thread {
- private CounterResource counterResource1;
- private CounterResource counterResource2;
-
+ private static int counterResource1 = 0;
+ private static int counterResource2 = 0;
+ private final static Object mutex = new Object();
  private int nCounts;
  
- 
- 
-public Counter(CounterResource counterResource1, CounterResource counterResource2, int nCounts) {
-	this.counterResource1 = counterResource1;
-	this.counterResource2 = counterResource2;
+ public Counter(int nCounts) {
 	this.nCounts = nCounts;
 }
-
-public  int getCounterResource1() {
-	return counterResource1.getCounter();
+ 
+public static int getCounterResource1() {
+	return counterResource1;
 }
 
-public  int getCounterResource2() {
-	return counterResource2.getCounter();
+public static int getCounterResource2() {
+	return counterResource2;
 }
 
 @Override
@@ -29,15 +25,13 @@ public  int getCounterResource2() {
 		 count2();
 	 }
  }
-private void count2() {
-	synchronized (counterResource2) {
-		counterResource2.increment();
-	}
+synchronized static private void count2() {
+	counterResource2++;
 	
 }
- private void count1() {
-	synchronized (counterResource1) {
-		counterResource1.increment();
+static private void count1() {
+	synchronized (mutex) {
+		counterResource1++;
 	}
 	
 }
