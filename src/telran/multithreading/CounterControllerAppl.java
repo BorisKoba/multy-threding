@@ -1,9 +1,7 @@
-package telran.multithreding;
+package telran.multithreading;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-
-import telran.multithreading.Counter;
 
 public class CounterControllerAppl {
 
