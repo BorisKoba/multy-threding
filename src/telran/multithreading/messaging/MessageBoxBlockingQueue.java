@@ -5,7 +5,7 @@ import java.util.concurrent.locks.*;
 /**
  * Message box contains only one string
  */
-public class MessageBoxStringCondition implements MessageBox{
+public class MessageBoxBlockingQueue implements MessageBox{
 	private String message;
 	private Lock lock = new ReentrantLock();
 	private Condition producerWaiting = lock.newCondition();
